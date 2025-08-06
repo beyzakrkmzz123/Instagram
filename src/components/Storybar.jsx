@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const StoryBar = () => {
+  const { t } = useTranslation();
   const scrollRef = useRef(null);
   const [users, setUsers] = useState([]);
   const [activeTab, setActiveTab] = useState("senin");
@@ -43,7 +45,7 @@ const StoryBar = () => {
             activeTab === "senin" ? "font-semibold" : "hover:text-gray-300"
           }`}
         >
-          Senin İçin
+          {t("forYou")}
         </div>
         <div
           role="button"
@@ -56,7 +58,7 @@ const StoryBar = () => {
             activeTab === "takip" ? "font-semibold" : "hover:text-gray-300"
           }`}
         >
-          Takip Ettiklerin
+          {t("following")}
         </div>
       </div>
 

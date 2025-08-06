@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Suggestions = () => {
+  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -20,22 +22,22 @@ const Suggestions = () => {
           />
           <div>
             <div className="font-semibold">
-              {users[0]?.username || "Yükleniyor..."}
+              {users[0]?.username || t("loading")}
             </div>
-            <div className="text-gray-400">{users[0]?.name || "İsim yok"}</div>
+            <div className="text-gray-400">{users[0]?.name || t("noName")}</div>
           </div>
         </div>
         <div className="text-blue-500 font-semibold text-xs cursor-pointer">
-          Geçiş Yap
+          {t("switch")}
         </div>
       </div>
 
       <div className="flex justify-between items-center mb-4">
         <div className="text-gray-400 font-semibold text-sm">
-          Senin için önerilenler
+          {t("suggestionsForYou")}
         </div>
         <div className="text-white text-xs font-semibold cursor-pointer">
-          Tümünü Gör
+          {t("seeAll")}
         </div>
       </div>
 
@@ -52,20 +54,20 @@ const Suggestions = () => {
                 {user.username}
               </div>
               <div className="text-gray-400 text-xs">
-                {user.company.name} takip ediyor
+                {t("followedBy", { company: user.company.name })}
               </div>
             </div>
           </div>
           <div className="text-blue-500 text-xs font-semibold cursor-pointer">
-            Takip Et
+            {t("follow")}
           </div>
         </div>
       ))}
 
       <div className="text-gray-500 text-xs mt-10 leading-5">
-        <p>Hakkında . Yardım . Basın . API . İş Fırsatları . Gizlilik</p>
-        <p>Koşullar . Konumlar . Dil . Meta Verified</p>
-        <p className="mt-3"> 2025 INSTAGRAM FROM META</p>
+        <p>{t("footerLinks1")}</p>
+        <p>{t("footerLinks2")}</p>
+        <p className="mt-3">2025 INSTAGRAM FROM META</p>
       </div>
     </div>
   );

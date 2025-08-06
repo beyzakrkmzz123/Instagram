@@ -3,8 +3,11 @@ import { FaRegComment } from "react-icons/fa";
 import { PiShareFat } from "react-icons/pi";
 import { GoHeart } from "react-icons/go";
 import { CiSaveDown2 } from "react-icons/ci";
+import { useTranslation } from "react-i18next";
 
 const PostCard = () => {
+  const { t } = useTranslation();
+
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
@@ -55,9 +58,9 @@ const PostCard = () => {
     const now = new Date();
     const diff = Math.floor((now - date) / 1000);
 
-    if (diff < 60) return `${diff} s`;
-    if (diff < 3600) return `${Math.floor(diff / 60)} dk`;
-    return `${Math.floor(diff / 3600)} saat`;
+    if (diff < 60) return `${diff} ${t("seconds")}`;
+    if (diff < 3600) return `${Math.floor(diff / 60)} ${t("minutes")}`;
+    return `${Math.floor(diff / 3600)} ${t("hours")}`;
   };
 
   const toggleLike = (postId) => {
@@ -99,7 +102,7 @@ const PostCard = () => {
                 <div className="text-sm font-semibold flex items-center gap-2">
                   {user ? user.username : `user_${post.userId}`}
                   <span className="text-xs text-gray-400">
-                    {timeAgo(post.createdAt)} önce
+                    {timeAgo(post.createdAt)} {t("ago")}
                   </span>
                 </div>
               </div>
@@ -132,7 +135,9 @@ const PostCard = () => {
                 </div>
               </div>
 
-              <div className="text-xs">{likeCounts[post.id] || 0} beğenme</div>
+              <div className="text-xs">
+                {likeCounts[post.id] || 0} {t("likes")}
+              </div>
 
               <div className="text-sm mt-2">
                 <div className="font-semibold">
@@ -142,7 +147,8 @@ const PostCard = () => {
               </div>
 
               <div className="text-sm text-gray-500 mt-2">
-                {comments[post.id]?.length || commentCounts[post.id] || 0} yorum
+                {comments[post.id]?.length || commentCounts[post.id] || 0}{" "}
+                {t("comments")}
               </div>
 
               <div className="mt-2 space-y-1">
@@ -159,7 +165,7 @@ const PostCard = () => {
               <div className="mt-1">
                 <input
                   type="text"
-                  placeholder="Yorum ekle..."
+                  placeholder={t("addComment")}
                   className="w-full bg-transparent outline-none border-none py-1 text-sm"
                   value={commentInput[post.id] || ""}
                   onChange={(e) =>
